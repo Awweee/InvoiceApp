@@ -1,1 +1,5 @@
-rootProject.name = 'InvoiceApp'
+rootProject.name = 'invoiceApp'
+
+include 'grpc-service'
+include 'PaymentService'
+include 'ClientApp'
