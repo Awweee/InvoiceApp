@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PublishController {
+public class PaymentController {
 
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    @PostMapping("/publishMessage")
-    public ResponseEntity<String> publishMessage(@RequestBody SystemMessage systemMessage){
+    @PostMapping("/sendOrder")
+    public ResponseEntity<String> sendOrder(@RequestBody PaymentOrder paymentOrder){
         try{
-            jmsTemplate.convertAndSend("InvoiceApp", systemMessage);
-            return new ResponseEntity<>("sent", HttpStatus.OK);
+            jmsTemplate.convertAndSend("InvoiceApp", paymentOrder);
+            return new ResponseEntity<String>("sent", HttpStatus.OK);
 
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

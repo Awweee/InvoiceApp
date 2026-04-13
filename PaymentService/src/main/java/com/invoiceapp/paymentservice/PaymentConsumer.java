@@ -6,13 +6,13 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MessageConsumer {
+public class PaymentConsumer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MessageConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentConsumer.class);
 
     @JmsListener(destination = "InvoiceApp")
-    public void messageListener(SystemMessage systemMessage){
-        LOGGER.info("Message recieved. {}", systemMessage);
+    public void messageListener(PaymentOrder paymentOrder){
+        LOGGER.info("Message recieved. {}", paymentOrder);
 
     }
 }
