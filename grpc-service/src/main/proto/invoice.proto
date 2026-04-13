@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package invoice;
+
+option java_package = "com.example.invoice";
+option java_multiple_files = true;
+
+service InvoiceService {
+  rpc SaveInvoice (InvoiceRequest) returns (InvoiceResponse);
+}
+
+message InvoiceRequest {
+  string invoiceNumber = 1;
+  string supplier = 2;
+  double amount = 3;
+  string invoiceDate = 4;
+}
+
+message InvoiceResponse {
+  bool success = 1;
+  string message = 2;
+}
