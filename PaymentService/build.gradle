@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.invoiceApp'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.activemq:activemq-client:5.18.3'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+configurations.all {
+    resolutionStrategy {
+        force 'io.grpc:grpc-core:1.65.0'
+        force 'io.grpc:grpc-netty-shaded:1.65.0'
+        force 'io.grpc:grpc-stub:1.65.0'
+        force 'io.grpc:grpc-protobuf:1.65.0'
+    }
+}

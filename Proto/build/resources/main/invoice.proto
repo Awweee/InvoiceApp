@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package InvoiceApp;
+
+option java_multiple_files = true;
+option java_package = "com.InvoiceApp.proto";
+option java_outer_classname = "InvoiceProto";
+
+
+service InvoiceService{
+  rpc SaveInvoice (SaveInvoiceRequest) returns (SaveInvoiceResponse);
+  rpc GetInvoice (GetInvoiceRequest) returns (GetInvoiceResponse);
+  rpc ListInvoices (ListInvoicesRequest) returns (ListInvoicesResponse);
+}
+message InvoiceMetadata{
+  string id=1;
+  string aussteller=2;
+  string empfaenger=3;
+  double betrag=4;
+  string waehrung=5;
+  string ausstellungsdatum=6;
+  bool ist_bezahlt=7;
+  string iban=8;
+}
+
+message SaveInvoiceRequest{
+  InvoiceMetadata metadata = 1;
+}
+
+message SaveInvoiceResponse{
+  string message = 1;
+}
+
+message GetInvoiceRequest{
+  string id=1;
+}
+message GetInvoiceResponse{
+    InvoiceMetadata metadata = 1;
+    string message = 2;
+}
+
+message ListInvoicesRequest{
+  string aussteller = 1;
+}
+message ListInvoicesResponse{
+  repeated InvoiceMetadata invoices = 1;
+}

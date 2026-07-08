@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="8cca9cf" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <bpmn:process id="RegisterInvoice" name="RegisterInvoiceTest" isExecutable="true">
+    <bpmn:extensionElements />
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1naduqj</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_1u3qa7l">
+      <bpmn:incoming>Flow_1fh19vp</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1naduqj" sourceRef="StartEvent_1" targetRef="Activity_1nxe2wh" />
+    <bpmn:sequenceFlow id="Flow_1fh19vp" sourceRef="Activity_1nxe2wh" targetRef="Event_1u3qa7l" />
+    <bpmn:serviceTask id="Activity_1nxe2wh" name="Register Invoice">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="RegisterInvoice" />
+        <zeebe:ioMapping>
+          <zeebe:input source="={&#34;Betrag&#34;:500.0,&#34;Waehrung&#34;:&#34;EUR&#34;,&#34;Ausstellungsdatum&#34;:&#34;16.04.2026&#34;,&#34;Aussteller&#34;:&#34;grpc GmbH&#34;,&#34;iban&#34;:&#34;D32131541512312&#34;,&#34;id&#34;:&#34;c2ec7c92-b4ce-4bea-816f-80d4e770b7f0&#34;,&#34;Empfaenger&#34;:&#34;HKA&#34;}" target="vars" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1naduqj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fh19vp</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="RegisterInvoice">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="150" y="100" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1u3qa7l_di" bpmnElement="Event_1u3qa7l">
+        <dc:Bounds x="502" y="100" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1et7sgo_di" bpmnElement="Activity_1nxe2wh">
+        <dc:Bounds x="280" y="78" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1naduqj_di" bpmnElement="Flow_1naduqj">
+        <di:waypoint x="186" y="118" />
+        <di:waypoint x="280" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fh19vp_di" bpmnElement="Flow_1fh19vp">
+        <di:waypoint x="380" y="118" />
+        <di:waypoint x="502" y="118" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

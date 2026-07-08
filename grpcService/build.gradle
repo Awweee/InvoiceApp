@@ -1,0 +1,27 @@
+plugins {
+    id 'application'
+    id 'java'
+    id 'com.google.protobuf' version '0.9.5'
+}
+application {
+    mainClass = 'grpcService.ClientApp'
+}
+
+group = 'com.invoiceApp'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("io.camunda:camunda-client-java:8.8.3")
+    implementation project(':Proto')
+    implementation project(':PaymentService')
+    implementation 'org.apache.activemq:activemq-client:5.18.3'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'io.grpc:grpc-netty-shaded:1.65.0'  // ← hochgezogen
+    implementation 'io.grpc:grpc-protobuf:1.65.0'      // ← hochgezogen
+    implementation 'io.grpc:grpc-stub:1.65.0'
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+}

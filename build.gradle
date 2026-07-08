@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.invoiceApp'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("io.camunda:camunda-client-java:8.8.3")
+    implementation("io.camunda:zeebe-client-java:8.7.8")
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}

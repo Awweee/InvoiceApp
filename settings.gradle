@@ -1,0 +1,5 @@
+rootProject.name = 'InvoiceApp'
+
+include 'grpcService'
+include 'Proto'
+include 'PaymentService'
