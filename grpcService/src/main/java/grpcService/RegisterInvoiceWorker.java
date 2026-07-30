@@ -5,7 +5,6 @@ import io.camunda.client.api.response.ActivatedJob;
 import io.camunda.client.api.worker.JobClient;
 import io.camunda.client.api.worker.JobHandler;
 import io.grpc.Channel;
-
 import java.util.Map;
 
 public class RegisterInvoiceWorker implements JobHandler {
@@ -36,6 +35,5 @@ public class RegisterInvoiceWorker implements JobHandler {
                 .send()
                 .join();
     }
-
 
 }

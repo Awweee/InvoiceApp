@@ -31,20 +31,15 @@ public class SaveInvoiceWorker implements JobHandler {
         Session session = conn.createSession();
         javax.jms.MessageProducer producer = (javax.jms.MessageProducer) session.createProducer(
                 session.createQueue("PaymentOrders"));
-
         String json = GSON.toJson(map);
         logger.info("JSON: " + json);
         TextMessage message = session.createTextMessage(json);
         producer.send(message);
 
         conn.close();
-
-        // Complete the job (or use client.newFailCommand() if something goes wrong)
         client.newCompleteCommand(job.getKey())
                 .variables(Map.of("InvoiceSaved", true))
                 .send()
                 .join();
     }
-
-
 }

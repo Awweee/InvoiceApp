@@ -23,7 +23,6 @@ public class PaymentService {
         Boolean ist_bezahlt;
         String iban;
     }
-
     public static void main(String[] args) throws Exception {
         Connection connection = new ActiveMQConnectionFactory(url).createConnection();
         connection.start();

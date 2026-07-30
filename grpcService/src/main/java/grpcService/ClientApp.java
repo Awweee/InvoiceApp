@@ -15,6 +15,7 @@ import javax.jms.JMSException;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -33,28 +34,24 @@ public class ClientApp {
         SaveInvoiceResponse res;
             res = blockingStub.saveInvoice(req);
     }
-//    public void GetInvoice(String id){
-//        GetInvoiceRequest req = GetInvoiceRequest.newBuilder().get
-//    }
-
     static void main(String[] args) throws JMSException {
 
         final Logger logger = Logger.getLogger(ClientApp.class.getName());
         final String target = "localhost:50051";
         ManagedChannel channel = Grpc.newChannelBuilder(target, InsecureChannelCredentials.create())
                 .build();
+        Scanner sc = new Scanner(System.in);
         final InvoiceMetadata md = InvoiceMetadata.newBuilder()
                 .setId(UUID.randomUUID().toString())
-                .setAussteller("grpc GmbH")
-                .setEmpfaenger("HKA")
-                .setBetrag(500)
-                .setWaehrung("EUR")
-                .setAusstellungsdatum("16.04.2026")
-                .setIban("D32131541512312")
+                .setAussteller(sc.nextLine())
+                .setEmpfaenger(sc.nextLine())
+                .setBetrag(sc.nextInt())
+                .setWaehrung(sc.nextLine())
+                .setAusstellungsdatum(sc.nextLine())
+                .setIban(sc.nextLine())
                 .build();
 
         logger.info(md.toString());
-
 
         Map<String, Object> map = new HashMap<>();
         map.put("id",    md.getId());
@@ -72,10 +69,6 @@ public class ClientApp {
                 .withRegion("bru-2")
                 .build();
 
-//        var topology = client.newTopologyRequest().send().join();
-//        System.out.println("Verbunden! Broker: " + topology.getBrokers());
-//
-
         final ProcessInstanceEvent processInstanceEvent = client.newCreateInstanceCommand()
                 .bpmnProcessId("RegisterInvoice")
                 .latestVersion()
@@ -88,12 +81,7 @@ public class ClientApp {
                 .variable("Datum",     md.getAusstellungsdatum())
                 .execute();
 
-
         logger.info("Process instance started for invoice: " + md.getId());
-//
-//        final DeploymentEvent deploymentEvent =  client.newDeployResourceCommand()
-//                .addResourceFromClasspath("RegisterInvoiceTest.bpmn")
-//                .execute();
 
         try (final JobWorker workerRegistration = client.newWorker()
                 .jobType("SaveInvoice")
@@ -102,7 +90,6 @@ public class ClientApp {
 
             System.out.println("Job worker opened and receiving jobs of type: " + "SaveInvoice");
 
-            // Keep the worker running
             Thread.sleep(Duration.ofMinutes(10));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -112,19 +99,11 @@ public class ClientApp {
                 .jobType("RegisterInvoice")
                 .handler(new RegisterInvoiceWorker(channel,map))
                 .open()) {
-
             System.out.println("Job worker opened and receiving jobs of type: " + "RegisterInvoice");
-
-            // Keep the worker running
             Thread.sleep(Duration.ofMinutes(10));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-
-
-
-
 
     }
 }
